@@ -5,9 +5,10 @@ export const getDroppedAssetDetails = async (req, res) => {
     const { assetId, interactivePublicKey, interactiveNonce, urlSlug, visitorId } = req.query;
     const droppedAsset = await DroppedAsset.get(assetId, urlSlug, {
       credentials: {
-        visitorId,
+        assetId,
         interactiveNonce,
         interactivePublicKey,
+        visitorId,
       },
     });
     res.json({ droppedAsset, success: true });

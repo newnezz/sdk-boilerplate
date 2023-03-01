@@ -6,6 +6,7 @@ import { Topia, DroppedAssetFactory, WorldFactory } from "@rtsdk/topia";
 const config = {
   apiDomain: process.env.INSTANCE_DOMAIN || "api-stage.topia.io",
   apiKey: process.env.API_KEY,
+  apiProtocol: process.env.INSTANCE_PROTOCOL || "https",
   interactiveKey: process.env.INTERACTIVE_KEY,
   interactiveSecret: process.env.INTERACTIVE_SECRET,
 };
