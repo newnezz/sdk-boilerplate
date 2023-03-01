@@ -10,9 +10,9 @@ export const getDroppedAssetDetails = async (req, res) => {
         interactivePublicKey,
       },
     });
-    if (res) res.json({ droppedAsset, success: true });
+    res.json({ droppedAsset, success: true });
   } catch (error) {
     console.log("Error getting asset and data object", error);
-    if (res) res.status(500).send({ error, success: false });
+    res.status(500).send({ error, success: false });
   }
 };
