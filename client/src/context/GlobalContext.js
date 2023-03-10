@@ -72,7 +72,7 @@ function setInteractiveParams({ assetId, dispatch, visitorId, interactiveNonce, 
 async function fetchWorld({ apiKey, dispatch, urlSlug }) {
   if (!apiKey || !urlSlug) return;
   try {
-    const topia = new Topia({
+    const topia = await new Topia({
       apiDomain: "api-stage.topia.io",
       apiKey,
     });

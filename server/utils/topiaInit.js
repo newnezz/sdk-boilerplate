@@ -1,5 +1,5 @@
-dotenv.config();
 import dotenv from "dotenv";
+dotenv.config();
 
 import { Topia, DroppedAssetFactory, WorldFactory } from "@rtsdk/topia";
 
@@ -11,7 +11,7 @@ const config = {
   interactiveSecret: process.env.INTERACTIVE_SECRET,
 };
 
-const myTopiaInstance = new Topia(config);
+const myTopiaInstance = await new Topia(config);
 
 const DroppedAsset = new DroppedAssetFactory(myTopiaInstance);
 const World = new WorldFactory(myTopiaInstance);
