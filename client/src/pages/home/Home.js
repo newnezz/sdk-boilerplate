@@ -72,7 +72,6 @@ export function Home() {
                 id="urlSlugInput"
                 label="URL Slug"
                 onChange={(event) => {
-                  console.log(event.target.value, urlSlug);
                   event.preventDefault();
                   setUrlSlug(event.target.value);
                 }}

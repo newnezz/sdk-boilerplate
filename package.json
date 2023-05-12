@@ -2,7 +2,7 @@
   "author": "metaversecloud.com | topia.io",
   "name": "sdk-boilerplate",
   "dependencies": {
-    "@rtsdk/topia": "^0.0.31",
+    "@rtsdk/topia": "^0.2.4",
     "axios": "^1.2.1",
     "body-parser": "^1.20.1",
     "concurrently": "^7.6.0",
@@ -13,7 +13,7 @@
   },
   "description": "",
   "engines": {
-    "node": "18.14.0"
+    "node": "18.14"
   },
   "keywords": [],
   "license": "ISC",
