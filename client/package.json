@@ -1,5 +1,5 @@
 {
-  "name": "sdk-boilerplate",
+  "name": "@sdk-boilerplate/sdk-client",
   "browserslist": {
     "production": [
       ">0.2%",
