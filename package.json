@@ -1,6 +1,7 @@
 {
   "author": "metaversecloud.com | topia.io",
   "name": "sdk-boilerplate",
+  "private": true,
   "dependencies": {
     "@rtsdk/topia": "^0.2.4",
     "axios": "^1.2.1",
