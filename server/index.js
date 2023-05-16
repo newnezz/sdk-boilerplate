@@ -19,6 +19,8 @@ function checkEnvVariables() {
 
   if (missingVariables.length > 0) {
     throw new Error(`Missing required environment variables in the .env file: ${missingVariables.join(", ")}`);
+  } else {
+    console.log("All required environment variables provided.");
   }
 }
 checkEnvVariables();
@@ -28,8 +30,6 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-app.use("/backend", router);
 
 if (process.env.NODE_ENV === "development") {
   const corsOptions = {
@@ -49,6 +49,8 @@ if (process.env.NODE_ENV === "development") {
     res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
   });
 }
+
+app.use("/backend", router);
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);

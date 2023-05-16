@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const BASE_URL = process.env.API_URL || "";
-console.log("🚀 ~ file: backendApi.js:4 ~ process.env:", process.env);
 let backendAPI = axios;
 
 const initBackendAPI = function () {
