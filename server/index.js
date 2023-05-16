@@ -41,8 +41,11 @@ if (process.env.NODE_ENV === "development") {
 } else {
   // Node serves the files for the React app
   const __filename = fileURLToPath(import.meta.url);
+  console.log("🚀 ~ file: index.js:44 ~ __filename:", __filename);
   const __dirname = path.dirname(__filename);
+  console.log("🚀 ~ file: index.js:46 ~ __dirname:", __dirname);
   app.use(express.static(path.resolve(__dirname, "../client/build")));
+  console.log("🚀 ~ file: index.js:48 ~ path.resolve:", path.resolve(__dirname, "../client/build"));
 
   // All other GET requests not handled before will return our React app
   app.get("*", (req, res) => {
