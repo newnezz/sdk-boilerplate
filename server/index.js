@@ -7,11 +7,29 @@ import router from "./routes.js";
 import cors from "cors";
 dotenv.config();
 
+function checkEnvVariables() {
+  const requiredEnvVariables = [
+    "INSTANCE_DOMAIN",
+    "INSTANCE_PROTOCOL",
+    "INTERACTIVE_KEY",
+    "INTERACTIVE_SECRET",
+    "API_KEY",
+  ];
+  const missingVariables = requiredEnvVariables.filter((variable) => !process.env[variable]);
+
+  if (missingVariables.length > 0) {
+    throw new Error(`Missing required environment variables in the .env file: ${missingVariables.join(", ")}`);
+  }
+}
+checkEnvVariables();
+
 const PORT = process.env.PORT || 3001;
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use("/backend", router);
 
 if (process.env.NODE_ENV === "development") {
   const corsOptions = {
@@ -31,8 +49,6 @@ if (process.env.NODE_ENV === "development") {
     res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
   });
 }
-
-app.use("/backend", router);
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
