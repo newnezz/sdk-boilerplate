@@ -53,21 +53,37 @@ function useGlobalDispatch() {
   return context;
 }
 
-function setInteractiveParams({ assetId, dispatch, visitorId, interactiveNonce, interactivePublicKey, urlSlug }) {
+function setInteractiveParams({
+  assetId,
+  dispatch,
+  displayName,
+  interactiveNonce,
+  interactivePublicKey,
+  profileId,
+  sceneDropId,
+  uniqueName,
+  urlSlug,
+  username,
+  visitorId,
+}) {
   const isInteractiveIframe = visitorId && interactiveNonce && interactivePublicKey && assetId;
   dispatch({
     type: "SET_INTERACTIVE_PARAMS",
     payload: {
       assetId,
-      visitorId,
+      displayName,
       interactiveNonce,
       interactivePublicKey,
-      urlSlug,
       isInteractiveIframe,
+      profileId,
+      sceneDropId,
+      uniqueName,
+      urlSlug,
+      username,
+      visitorId,
     },
   });
 }
-
 // eslint-disable-next-line no-unused-vars
 async function fetchWorld({ apiKey, dispatch, urlSlug }) {
   if (!apiKey || !urlSlug) return;

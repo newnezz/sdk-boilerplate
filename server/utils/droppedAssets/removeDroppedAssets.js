@@ -1,9 +1,9 @@
-import { fetchDroppedAssetsUniqueName } from "./getDroppedAssetsWithUniqueName.js";
+import { getDroppedAssetsWithUniqueName } from "./getDroppedAssetsWithUniqueName.js";
 import { DroppedAsset } from "../topiaInit.js";
 import error from "../errors.js";
 
 export const removeDroppedAssetsUniqueName = async (req, res) => {
-  const droppedAssets = await fetchDroppedAssetsUniqueName(req);
+  const droppedAssets = await getDroppedAssetsWithUniqueName(req);
   if (!droppedAssets) throw "No dropped assets found";
   if (droppedAssets.error) throw droppedAssets.error;
   if (droppedAssets && droppedAssets.length) {
