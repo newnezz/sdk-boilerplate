@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 // components
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 
 // context
 import { fetchWorld, useGlobalDispatch, useGlobalState } from "@context";
@@ -46,46 +46,45 @@ export function Home() {
         <Grid item pb={10}>
           <Grid alignItems="center" container spacing={2}>
             <Grid item xs={12}>
-              <Typography variant="h4">Client side example using API Key</Typography>
+              <h3>Client side example using API Key</h3>
             </Grid>
             <Grid item xs={12}>
-              <Typography>
+              <p>
                 Enter your API Key and URL Slug to retrieve the detail of your world. Once retrieved the world will be
                 saved to Global Context for easy use throughout your application!
-              </Typography>
+              </p>
             </Grid>
             <Grid item>
-              <TextField
+              <label htmlFor="apiKeyInput">API Key:</label>
+              <input
                 id="apiKeyInput"
-                label="API Key"
                 onChange={(event) => {
                   event.preventDefault();
                   setApiKey(event.target.value);
                 }}
-                sx={{ width: 320 }}
+                type="text"
                 value={apiKey}
               />
             </Grid>
             <Grid item>
-              <TextField
+              <label htmlFor="urlSlugInput">URL Slug:</label>
+              <input
                 disabled={!apiKey}
                 id="urlSlugInput"
-                label="URL Slug"
                 onChange={(event) => {
                   event.preventDefault();
                   setUrlSlug(event.target.value);
                 }}
+                type="text"
                 value={urlSlug}
               />
             </Grid>
             <Grid item>
-              <Button onClick={handleSelectWorld} variant="contained">
-                Get World Details
-              </Button>
+              <button onClick={handleSelectWorld}>Get World Details</button>
             </Grid>
             {name && (
               <Grid item xs={12}>
-                <Typography>You have successfully retrieved the world details for {name}!</Typography>
+                <p>You have successfully retrieved the world details for {name}!</p>
               </Grid>
             )}
           </Grid>
@@ -93,31 +92,27 @@ export function Home() {
         <Grid item>
           <Grid alignItems="center" container spacing={2}>
             <Grid item xs={12}>
-              <Typography variant="h4">Server side example using interactive parameters</Typography>
+              <h3>Server side example using interactive parameters</h3>
             </Grid>
             <Grid item xs={12}>
               {!hasInteractiveParams ? (
-                <Typography>
+                <p>
                   Edit an asset in your world and open the Links page in the Modify Asset drawer and add a link to your
                   website or use &quot;http://localhost:3000&quot; for testing locally. You can also add assetId,
                   interactiveNonce, interactivePublicKey, urlSlug, and visitorId directly to the URL as search
                   parameters to use this feature.
-                </Typography>
+                </p>
               ) : (
-                <Typography>Interactive parameters found, nice work!</Typography>
+                <p>Interactive parameters found, nice work!</p>
               )}
             </Grid>
             <Grid item>
-              <Button onClick={handleGetDroppedAsset} variant="contained">
-                Get Dropped Asset Details
-              </Button>
+              <button onClick={handleGetDroppedAsset}>Get Dropped Asset Details</button>
             </Grid>
             {droppedAsset && (
               <>
                 <Grid item pt={4} xs={12}>
-                  <Typography>
-                    You have successfully retrieved the dropped asset details for {droppedAsset.assetName}!
-                  </Typography>
+                  <p>You have successfully retrieved the dropped asset details for {droppedAsset.assetName}!</p>
                 </Grid>
                 <Grid item m={4} xs={12}>
                   <img alt="preview" src={droppedAsset.topLayerURL || droppedAsset.bottomLayerURL} />

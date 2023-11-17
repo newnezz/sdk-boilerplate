@@ -8,13 +8,7 @@ import cors from "cors";
 dotenv.config();
 
 function checkEnvVariables() {
-  const requiredEnvVariables = [
-    "INSTANCE_DOMAIN",
-    "INSTANCE_PROTOCOL",
-    "INTERACTIVE_KEY",
-    "INTERACTIVE_SECRET",
-    "API_KEY",
-  ];
+  const requiredEnvVariables = ["INTERACTIVE_KEY", "INTERACTIVE_SECRET"];
   const missingVariables = requiredEnvVariables.filter((variable) => !process.env[variable]);
 
   if (missingVariables.length > 0) {
@@ -30,6 +24,30 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(function (req, res, next) {
+  const ogSend = res.send;
+  res.send = function (data) {
+    if (data && res.statusCode < 300) {
+      try {
+        const cleanData = JSON.parse(data);
+        const path = findObjectKeyPath(cleanData, "topia");
+        if (cleanData && path && cleanData[path]) {
+          delete cleanData[path]["topia"];
+          delete cleanData[path]["credentials"];
+          delete cleanData[path]["jwt"];
+          delete cleanData[path]["requestOptions"];
+        }
+        res.send = ogSend;
+        return res.send(cleanData);
+      } catch (error) {
+        console.log(error);
+        next();
+      }
+    }
+  };
+  next();
+});
 
 if (process.env.NODE_ENV === "development") {
   const corsOptions = {
