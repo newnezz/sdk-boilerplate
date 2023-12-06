@@ -1,8 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 // components
-import { Button, Grid, Paper, Typography } from "@mui/material";
+import { Grid, Paper } from "@mui/material";
 
 export function Error() {
   return (
@@ -29,22 +28,11 @@ export function Error() {
           maxWidth: 500,
         }}
       >
-        <Typography variant="h1">404</Typography>
-        <Typography variant="h5">Oops. Looks like the page you&apos;re looking for no longer exists.</Typography>
-        <Typography variant="h6">But we&apos;re here to bring you back to safety</Typography>
-        <Button
-          color="primary"
-          component={Link}
-          size="large"
-          sx={{
-            textTransform: "none",
-            fontSize: 22,
-          }}
-          to="/"
-          variant="contained"
-        >
-          Back to Home
-        </Button>
+        <h1>404</h1>
+        <h5>Oops. Looks like the page you&apos;re looking for no longer exists.</h5>
+        <h6>But we&apos;re here to bring you back to safety</h6>
+        <br />
+        <button onClick={() => (window.location.href = "/")}>Back to Home</button>
       </Paper>
     </Grid>
   );
