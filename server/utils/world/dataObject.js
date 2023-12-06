@@ -1,42 +1,55 @@
 import { World } from "../topiaInit.js";
-import error from "../errors.js";
+import { errorHandler } from "../errorHandler.js";
 
-export const getWorldDataObject = async (req, res) => {
+export const getWorldDataObject = async (credentials) => {
   try {
-    const { urlSlug } = req.query;
-    const world = World.create(urlSlug, { credentials: req.query });
+    const { urlSlug } = credentials;
+    const world = World.create(urlSlug, { credentials });
     await world.fetchDataObject();
-    if (res) res.json({ dataObject: world.dataObject, success: true });
     return world.dataObject;
-  } catch (e) {
-    error("Error getting world details", e, res);
+  } catch (error) {
+    errorHandler({
+      error,
+      functionName: "getWorldDataObject",
+      message: "Error getting world details",
+      req,
+      res,
+    });
   }
 };
 
-export const updateWorldDataObject = async (req, res) => {
-  const { dataObject } = req.body;
+export const updateWorldDataObject = async (credentials, dataObject) => {
   try {
-    const { urlSlug } = req.query;
-    const world = World.create(urlSlug, { credentials: req.query });
+    const { urlSlug } = credentials;
+    const world = World.create(urlSlug, { credentials });
     await world.updateDataObject(dataObject);
-    if (res) res.json({ dataObject, success: true });
-    return dataObject;
-  } catch (e) {
-    error("Updating world data object", e, res);
+    return world.dataObject;
+  } catch (error) {
+    errorHandler({
+      error,
+      functionName: "updateWorldDataObject",
+      message: "Error updating world data object",
+      req,
+      res,
+    });
   }
 };
 
-export const incrementWorldDataObjectValue = async (req, res) => {
-  const { path, amount } = req.body;
+export const incrementWorldDataObjectValue = async (credentials, amount, path) => {
   try {
-    const { urlSlug } = req.query;
-    const world = World.create(urlSlug, { credentials: req.query });
+    const { urlSlug } = credentials;
+    const world = World.create(urlSlug, { credentials });
     // Can also pass in a lock object as third argument of type
     // { lockId: string, releaseLock?: boolean }
     await world.incrementDataObjectValue(path, amount);
-    if (res) res.json({ success: true });
-    return;
-  } catch (e) {
-    error("Incrementing world data object", e, res);
+    return world.dataObject;
+  } catch (error) {
+    errorHandler({
+      error,
+      functionName: "incrementWorldDataObjectValue",
+      message: "Error incrementing world data object",
+      req,
+      res,
+    });
   }
 };

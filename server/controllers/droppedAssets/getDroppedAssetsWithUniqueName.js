@@ -1,10 +1,8 @@
-import { World } from "../topiaInit.js";
-import error from "../errors.js";
+import { World, errorHandler } from "../../utils/index.js";
 
 export const getDroppedAssetsWithUniqueName = async (req, res) => {
-  const { interactivePublicKey, interactiveNonce, isPartial, uniqueName, urlSlug, visitorId } = req.query;
-
   try {
+    const { interactivePublicKey, interactiveNonce, isPartial, uniqueName, urlSlug, visitorId } = req.query;
     const world = World.create(urlSlug, {
       credentials: {
         interactiveNonce,
@@ -24,9 +22,14 @@ export const getDroppedAssetsWithUniqueName = async (req, res) => {
       delete normalizedAsset["requestOptions"];
       return normalizedAsset;
     });
-    if (res) res.json({ droppedAssets: normalized, success: true });
-    return droppedAssets;
-  } catch (e) {
-    error("Fetching dropped assets with unique name", e, res);
+    return res.json({ droppedAssets: normalized, success: true });
+  } catch (error) {
+    errorHandler({
+      error,
+      functionName: "getDroppedAssetsWithUniqueName",
+      message: "Error fetching dropped assets with unique name",
+      req,
+      res,
+    });
   }
 };

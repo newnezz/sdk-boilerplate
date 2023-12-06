@@ -25,30 +25,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(function (req, res, next) {
-  const ogSend = res.send;
-  res.send = function (data) {
-    if (data && res.statusCode < 300) {
-      try {
-        const cleanData = JSON.parse(data);
-        const path = findObjectKeyPath(cleanData, "topia");
-        if (cleanData && path && cleanData[path]) {
-          delete cleanData[path]["topia"];
-          delete cleanData[path]["credentials"];
-          delete cleanData[path]["jwt"];
-          delete cleanData[path]["requestOptions"];
-        }
-        res.send = ogSend;
-        return res.send(cleanData);
-      } catch (error) {
-        console.log(error);
-        next();
-      }
-    }
-  };
-  next();
-});
-
 if (process.env.NODE_ENV === "development") {
   const corsOptions = {
     origin: "http://localhost:3000",
@@ -59,11 +35,8 @@ if (process.env.NODE_ENV === "development") {
 } else {
   // Node serves the files for the React app
   const __filename = fileURLToPath(import.meta.url);
-  console.log("🚀 ~ file: index.js:44 ~ __filename:", __filename);
   const __dirname = path.dirname(__filename);
-  console.log("🚀 ~ file: index.js:46 ~ __dirname:", __dirname);
   app.use(express.static(path.resolve(__dirname, "../client/build")));
-  console.log("🚀 ~ file: index.js:48 ~ path.resolve:", path.resolve(__dirname, "../client/build"));
 
   // All other GET requests not handled before will return our React app
   app.get("*", (req, res) => {
