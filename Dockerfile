@@ -1,8 +1,7 @@
-FROM node:18-alpine3.17
+FROM --platform=linux/arm64 node:20.10-alpine3.19
 WORKDIR /app
-COPY server .
-COPY client .
-COPY package.json .
+ADD build ./build
+ADD package* ./
+ADD node_modules ./node_modules
 EXPOSE 3000
-RUN npm run build
-CMD ["npm", "start"]
+ENTRYPOINT [ "node", "build/src/index.js" ]
