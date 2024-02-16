@@ -13,8 +13,7 @@ export const getWorldDetails = async (req, res) => {
     });
     await world.fetchDetails();
 
-    res.json({ world, success: true });
-    return world;
+    return res.json({ world, success: true });
   } catch (error) {
     errorHandler({
       error,

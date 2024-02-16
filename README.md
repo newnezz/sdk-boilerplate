@@ -4,7 +4,7 @@ Please update the following in each of your SDK application.
 
 ## Introduction / Summary
 
-This boilerplate is meant to give you a simple starting point to build new features in Topia using our Javascript SDK.
+This boilerplate is meant to give you a simple starting point to build new features in Topia using our Javascript SDK. Please reference the [documentation](https://metaversecloud-com.github.io/mc-sdk-js/index.html) for a more detailed breakdown of what the SDK is capable of and how to use it!
 
 ## Key Features
 
@@ -48,24 +48,25 @@ See below for an example data object usage and implementation
 ### Getting Started
 
 - Clone this repository
-- Run `yarn` in server
+- Run `npm i` in server
 - `cd client`
-- Run `yarn` in client
+- Run `npm i` in client
 - `cd ..` back to server
 
 ### Add your .env environmental variables
 
 ```json
-API_KEY=488ecv4e-fdf73-fgfq6v682ea-4r41-av3a
-API_URL=http://localhost:3001
+API_KEY=xxxxxxxxxxxxx
 INSTANCE_DOMAIN=api.topia.io
-INTERACTIVE_KEY=2oij2asdf38v0j340j428
-INTERACTIVE_SECRET=enteryoursecret
+INSTANCE_PROTOCOL=https
+INTERACTIVE_KEY=xxxxxxxxxxxxx
+INTERACTIVE_SECRET=xxxxxxxxxxxxxx
 ```
 
 ### Where to find API_KEY, INTERACTIVE_KEY and INTERACTIVE_SECRET
 
 [Topia Dev Account Dashboard](https://dev.topia.io/t/dashboard/integrations)
+
 [Topia Production Account Dashboard](https://topia.io/t/dashboard/integrations)
 
 ### Data objects

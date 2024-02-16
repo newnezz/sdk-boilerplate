@@ -11,7 +11,6 @@ export const getDroppedAssetsWithUniqueName = async (req, res) => {
         visitorId,
       },
     });
-
     const droppedAssets = await world.fetchDroppedAssetsWithUniqueName({
       isPartial,
       uniqueName,
