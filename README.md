@@ -8,19 +8,19 @@ This boilerplate is meant to give you a simple starting point to build new featu
 
 ## Key Features
 
--
-
 ### Canvas elements & interactions
 
--
+- Key Asset: When clicked this asset will open the drawer and allow users and admins to start interacting with the app.
 
 ### Drawer content
 
--
+- How to play instructions
+- Leaderboard
+- Admin features (see below)
 
 ### Admin features
 
-Does your app have special admin functionality? If so your key features may looks something like this:
+_Does your app have special admin functionality? If so your key features may looks something like this:_
 
 - Access: Click on the key asset to open the drawer and then select the Admin tab. Any changes you make here will only affect this instance of the application and will not impact other instances dropped in this or other worlds.
 - Theme selection: Use the dropdown to select a theme.
@@ -33,15 +33,20 @@ Does your app have special admin functionality? If so your key features may look
 
 ### Data objects
 
-We use data objects to store information about each implementation of the app per world.
+_We use data objects to store information about each implementation of the app per world._
 
-#### How and when they are being used
-
-See below for an example data object usage and implementation
-
-- how to update nested item (and why)
-- how to use locks with counters
-  use TTT move as example for turn management
+- Key Asset: the data object attached to the dropped key asset will store information related to this specific implementation of the app and would be deleted if the key asset is removed from world. Example data:
+  - isResetInProgress
+  - lastInteraction
+  - lastPlayerTurn
+  - playerCount
+  - resetCount
+  - turnCount
+- World: the data object attached to the world will store analytics information for every instance of the app in a given world by keyAssetId and will persist even if a specific instance is removed from world. Example data:
+  - gamesPlayedByUser (`keyAssets.${assetId}.gamesPlayedByUser.${profileId}.count`)
+  - gamesWonByUser (`keyAssets.${keyAssetId}.gamesWonByUser.${profileId}.count`)
+  - totalGamesResetCount (`keyAssets.${assetId}.totalGamesResetCount`)
+  - totalGamesWonCount (`keyAssets.${assetId}.totalGamesWonCount`)
 
 ## Developers:
 
@@ -69,15 +74,11 @@ INTERACTIVE_SECRET=xxxxxxxxxxxxxx
 
 [Topia Production Account Dashboard](https://topia.io/t/dashboard/integrations)
 
-### Data objects
-
-#### Example data object payload (in code)
-
-#### Example
-
 ### Helpful links
 
 - [SDK Developer docs](https://metaversecloud-com.github.io/mc-sdk-js/index.html)
-- View it in action [here](topia.io/appname-prod)!
-- How to play
-- To see an example of an on canvas turn based game check out (TicTacToe)[]
+- [View it in action!](topia.io/appname-prod)
+- [Notion One Pager](https://www.notion.so/topiaio/6257c74f9532449b842cfe557975c826?v=8cdffb024588478caeee0cecb8989e82&pvs=4)
+- To see an example of an on canvas turn based game check out TicTacToe:
+  - (github))[https://github.com/metaversecloud-com/sdk-tictactoe]
+  - (demo))[https://topia.io/tictactoe-prod]

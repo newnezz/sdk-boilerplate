@@ -1,4 +1,4 @@
-import { DroppedAsset, errorHandler } from "../../utils/index.js";
+import { errorHandler, getDroppedAsset, initializeDroppedAssetDataObject } from "../../utils/index.js";
 
 export const handleGetDroppedAsset = async (req, res) => {
   try {
@@ -9,7 +9,7 @@ export const handleGetDroppedAsset = async (req, res) => {
     await initializeDroppedAssetDataObject(droppedAsset);
     return res.json({ droppedAsset, success: true });
   } catch (error) {
-    errorHandler({
+    return errorHandler({
       error,
       functionName: "handleGetDroppedAsset",
       message: "Error getting dropped asset instance and data object",

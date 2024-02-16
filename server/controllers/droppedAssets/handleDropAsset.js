@@ -1,8 +1,8 @@
 import { Asset, DroppedAsset, errorHandler } from "../../utils/index.js";
 
-export const dropAsset = async (req, res) => {
+export const handleDropAsset = async (req, res) => {
   try {
-    const { urlSlug } = req.query;
+    const { interactiveNonce, interactivePublicKey, urlSlug, visitorId } = req.query;
     const { assetId, isInteractive, position, uniqueName } = req.body;
 
     const asset = Asset.create(assetId, {
@@ -16,20 +16,19 @@ export const dropAsset = async (req, res) => {
     const droppedAsset = await DroppedAsset.drop(asset, {
       isInteractive,
       interactivePublicKey: process.env.INTERACTIVE_KEY,
-      position,
+      position: position || { x: 0, y: 0 },
       uniqueName,
       urlSlug,
     });
 
     return res.json({ droppedAsset, success: true });
   } catch (error) {
-    errorHandler({
+    return errorHandler({
       error,
-      functionName: "dropAsset",
+      functionName: "handleDropAsset",
       message: "Error dropping asset",
       req,
       res,
     });
-    return null;
   }
 };

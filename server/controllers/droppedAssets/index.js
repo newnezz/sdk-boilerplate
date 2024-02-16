@@ -1,4 +1,4 @@
-export * from "./dropAsset.js";
+export * from "./handleDropAsset.js";
 export * from "./handleGetDroppedAsset.js";
-export * from "./getDroppedAssetsWithUniqueName.js";
-export * from "./removeDroppedAssets.js";
+export * from "./handleGetDroppedAssetsWithUniqueName.js";
+export * from "./handleRemoveDroppedAssets.js";

@@ -5,12 +5,6 @@ const GlobalDispatchContext = React.createContext();
 
 function globalReducer(state, action) {
   switch (action.type) {
-    case "SELECT_WORLD":
-      return {
-        ...state,
-        urlSlug: action.payload.urlSlug,
-        selectedWorld: action.payload.selectedWorld,
-      };
     case "SET_INTERACTIVE_PARAMS":
       return {
         ...state,

@@ -1,13 +1,13 @@
 import express from "express";
 import {
-  dropAsset,
+  handleDropAsset,
+  handleGetDroppedAssetsWithUniqueName,
+  handleGetWorldDetails,
   handleGetDroppedAsset,
-  getDroppedAssetsWithUniqueName,
-  getWorldDetails,
   handleGetVisitor,
+  handleUpdateWorldDataObject,
   moveVisitor,
-  removeDroppedAsset,
-  updateWorldDetails,
+  handleRemoveDroppedAssets,
 } from "./controllers/index.js";
 import { getVersion } from "./utils/getVersion.js";
 
@@ -21,17 +21,17 @@ router.get("/system/health", (req, res) => {
 });
 
 // Dropped Assets
-router.get("/dropped-asset-with-unique-name", getDroppedAssetsWithUniqueName); // { isPartial: boolean, uniqueName: string }
-router.post("/dropped-asset", dropAsset); // { assetId: string, isInteractive: boolean, position: {x: number, y: number }, uniqueName: string }
+router.get("/dropped-asset-with-unique-name", handleGetDroppedAssetsWithUniqueName);
+router.post("/dropped-asset", handleDropAsset);
 router.get("/dropped-asset", handleGetDroppedAsset);
-router.delete("/dropped-asset", removeDroppedAsset);
+router.delete("/dropped-asset", handleRemoveDroppedAssets);
 
 // Visitor
 router.get("/visitor", handleGetVisitor);
 router.put("/visitor/move", moveVisitor);
 
 // World
-router.get("/world", getWorldDetails);
-router.put("/world", updateWorldDetails); // See file for inputs
+router.get("/world", handleGetWorldDetails);
+router.put("/world/data-object", handleUpdateWorldDataObject);
 
 export default router;

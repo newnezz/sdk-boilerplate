@@ -1,6 +1,6 @@
-import { errorHandler } from "../../utils/index.js";
+import { errorHandler, getDroppedAsset } from "../../utils/index.js";
 
-export const removeDroppedAsset = async (req, res) => {
+export const handleRemoveDroppedAssets = async (req, res) => {
   try {
     const droppedAsset = await getDroppedAsset(req.query);
 
@@ -9,9 +9,9 @@ export const removeDroppedAsset = async (req, res) => {
 
     return res.json({ success: true });
   } catch (error) {
-    errorHandler({
+    return errorHandler({
       error,
-      functionName: "removeDroppedAsset",
+      functionName: "handleRemoveDroppedAssets",
       message: "Error removing dropping asset",
       req,
       res,

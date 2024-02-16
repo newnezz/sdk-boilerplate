@@ -10,7 +10,7 @@ const initBackendAPI = function () {
 
 const setupBackendAPI = (interactiveParams) => {
   backendAPI = axios.create({
-    baseURL: `${BASE_URL}/backend`,
+    baseURL: `${BASE_URL}/api`,
     headers: {
       "Content-Type": "application/json",
     },

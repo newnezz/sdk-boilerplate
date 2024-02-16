@@ -20,7 +20,7 @@ export function Home() {
       const result = await backendAPI.get("/dropped-asset");
       if (result.data.success) {
         setDroppedAsset(result.data.droppedAsset);
-      } else return console.log("ERROR getting data object");
+      } else return console.log("Error getting data object");
     } catch (error) {
       console.log(error);
     }

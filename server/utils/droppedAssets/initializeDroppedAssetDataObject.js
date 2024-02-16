@@ -1,6 +1,6 @@
-import { errorHandler } from "../errorHandler";
+import { errorHandler } from "../index.js";
 
-export const initializeDroppedAssetDataObject = async ({ droppedAsset }) => {
+export const initializeDroppedAssetDataObject = async (deleteDroppedAsset) => {
   try {
     await droppedAsset.fetchDataObject();
 

@@ -1,8 +1,8 @@
 import { World, errorHandler } from "../../utils/index.js";
 
-export const getDroppedAssetsWithUniqueName = async (req, res) => {
+export const handleGetDroppedAssetsWithUniqueName = async (req, res) => {
   try {
-    const { interactivePublicKey, interactiveNonce, isPartial, uniqueName, urlSlug, visitorId } = req.query;
+    const { interactivePublicKey, interactiveNonce, isPartial = true, uniqueName, urlSlug, visitorId } = req.query;
 
     const world = World.create(urlSlug, {
       credentials: {
@@ -18,9 +18,9 @@ export const getDroppedAssetsWithUniqueName = async (req, res) => {
 
     return res.json({ droppedAssets, success: true });
   } catch (error) {
-    errorHandler({
+    return errorHandler({
       error,
-      functionName: "getDroppedAssetsWithUniqueName",
+      functionName: "handleGetDroppedAssetsWithUniqueName",
       message: "Error fetching dropped assets with unique name",
       req,
       res,

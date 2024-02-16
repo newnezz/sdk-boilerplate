@@ -12,12 +12,10 @@ export const addProfileToWorldDataObject = async (credentials) => {
 
     return world.dataObject;
   } catch (error) {
-    errorHandler({
+    return errorHandler({
       error,
       functionName: "addProfileToWorldDataObject",
       message: "Error updating world data object",
-      req,
-      res,
     });
   }
 };
@@ -33,12 +31,10 @@ export const incrementWorldDataObjectValue = async (credentials, amount, path) =
 
     return world.dataObject;
   } catch (error) {
-    errorHandler({
+    return errorHandler({
       error,
       functionName: "incrementWorldDataObjectValue",
       message: "Error incrementing world data object",
-      req,
-      res,
     });
   }
 };

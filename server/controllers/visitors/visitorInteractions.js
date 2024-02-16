@@ -9,7 +9,7 @@ export const openIframe = async (req, res) => {
 
     return res.json({ visitor, success: true });
   } catch (error) {
-    errorHandler({
+    return errorHandler({
       error,
       functionName: "openIframe",
       message: "Error opening iFrame in visitor UI",
@@ -28,7 +28,7 @@ export const fireToast = async (req, res) => {
 
     return res.json({ visitor, success: true });
   } catch (error) {
-    errorHandler({
+    return errorHandler({
       error,
       functionName: "fireToast",
       message: "Error firing toast in visitor UI",
@@ -40,18 +40,14 @@ export const fireToast = async (req, res) => {
 
 export const moveVisitor = async (req, res) => {
   try {
-    const {
-      moveTo, // { x, y }
-      shouldTeleportVisitor,
-    } = req.body;
-
+    const { moveTo, shouldTeleportVisitor } = req.body;
     const visitor = await getVisitor(req.query);
-    if (!moveTo || !moveTo.x || !moveTo.y) throw "Invalid movement coordinates";
+
     await visitor.moveVisitor({ x: moveTo.x, y: moveTo.y, shouldTeleportVisitor });
 
     return res.json({ visitor, success: true });
   } catch (error) {
-    errorHandler({
+    return errorHandler({
       error,
       functionName: "moveVisitor",
       message: "Error moving visitor",

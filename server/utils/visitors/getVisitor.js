@@ -17,12 +17,10 @@ export const getVisitor = async (credentials) => {
 
     return visitor;
   } catch (error) {
-    errorHandler({
+    return errorHandler({
       error,
       functionName: "getVisitor",
       message: "Error getting visitor",
-      req,
-      res,
     });
   }
 };

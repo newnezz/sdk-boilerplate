@@ -5,6 +5,6 @@ export const handleGetVisitor = async (req, res) => {
     const visitor = await getVisitor(req.query);
     return res.json({ visitor, success: true });
   } catch (error) {
-    errorHandler({ error, functionName: "handleGetVisitor", message: "Error getting visitor", req, res });
+    return errorHandler({ error, functionName: "handleGetVisitor", message: "Error getting visitor", req, res });
   }
 };
