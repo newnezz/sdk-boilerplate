@@ -53,6 +53,30 @@ if (process.env.NODE_ENV === "development") {
   });
 }
 
+app.use(function (req, res, next) {
+  const ogSend = res.send;
+  res.send = function (data) {
+    if (data) {
+      try {
+        const cleanData = typeof data === "string" ? JSON.parse(data) : data;
+        const path = findObjectKeyPath(cleanData, "topia");
+        if (cleanData && path && cleanData[path]) {
+          delete cleanData[path]["topia"];
+          delete cleanData[path]["credentials"];
+          delete cleanData[path]["jwt"];
+          delete cleanData[path]["requestOptions"];
+        }
+        res.send = ogSend;
+        return res.send(cleanData);
+      } catch (error) {
+        console.log(error);
+        next();
+      }
+    }
+  };
+  next();
+});
+
 app.use("/backend", router);
 
 app.listen(PORT, () => {

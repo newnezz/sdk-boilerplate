@@ -1,1 +1,2 @@
-export { getDroppedAssetDetails } from "./getDroppedAssetDetails.js";
+export * from "./getDroppedAsset.js";
+export * from "./initializeDroppedAssetDataObject.js";
