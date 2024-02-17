@@ -1,9 +1,9 @@
 import { World, errorHandler } from "../../utils/index.js";
 
-export const getWorldDetails = async (req, res) => {
+export const handleGetWorldDetails = async (req, res) => {
   try {
     const { urlSlug, interactiveNonce, interactivePublicKey, visitorId } = req.query;
-    const { includeDataObject } = req.body;
+
     const world = World.create(urlSlug, {
       credentials: {
         interactiveNonce,
@@ -12,13 +12,12 @@ export const getWorldDetails = async (req, res) => {
       },
     });
     await world.fetchDetails();
-    if (includeDataObject) await world.fetchDataObject();
-    res.json({ world, success: true });
-    return world;
+
+    return res.json({ world, success: true });
   } catch (error) {
-    errorHandler({
+    return errorHandler({
       error,
-      functionName: "getWorldDetails",
+      functionName: "handleGetWorldDetails",
       message: "Error getting world details",
       req,
       res,

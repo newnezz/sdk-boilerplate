@@ -1,36 +1,21 @@
 import { World } from "../topiaInit.js";
 import { errorHandler } from "../errorHandler.js";
 
-export const getWorldDataObject = async (credentials) => {
+export const addProfileToWorldDataObject = async (credentials) => {
   try {
-    const { urlSlug } = credentials;
-    const world = World.create(urlSlug, { credentials });
-    await world.fetchDataObject();
-    return world.dataObject;
-  } catch (error) {
-    errorHandler({
-      error,
-      functionName: "getWorldDataObject",
-      message: "Error getting world details",
-      req,
-      res,
-    });
-  }
-};
+    const { assetId, urlSlug, username } = credentials;
 
-export const updateWorldDataObject = async (credentials, dataObject) => {
-  try {
-    const { urlSlug } = credentials;
     const world = World.create(urlSlug, { credentials });
-    await world.updateDataObject(dataObject);
+
+    // Include the complete path to the property you'd like to update in the data object to prevent the entire object from being erroneously updated
+    await world.updateDataObject({ [`keyAssets.${assetId}.profiles.${profileId}`]: username });
+
     return world.dataObject;
   } catch (error) {
-    errorHandler({
+    return errorHandler({
       error,
-      functionName: "updateWorldDataObject",
+      functionName: "addProfileToWorldDataObject",
       message: "Error updating world data object",
-      req,
-      res,
     });
   }
 };
@@ -38,18 +23,18 @@ export const updateWorldDataObject = async (credentials, dataObject) => {
 export const incrementWorldDataObjectValue = async (credentials, amount, path) => {
   try {
     const { urlSlug } = credentials;
+
     const world = World.create(urlSlug, { credentials });
-    // Can also pass in a lock object as third argument of type
-    // { lockId: string, releaseLock?: boolean }
+
+    // path should equal the exact path to the item you'd like to increment i.e. `keyAssets.${assetId}.gamesPlayedByUser.${profileId}.count`
     await world.incrementDataObjectValue(path, amount);
+
     return world.dataObject;
   } catch (error) {
-    errorHandler({
+    return errorHandler({
       error,
       functionName: "incrementWorldDataObjectValue",
       message: "Error incrementing world data object",
-      req,
-      res,
     });
   }
 };

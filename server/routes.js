@@ -1,36 +1,37 @@
 import express from "express";
 import {
-  dropAsset,
-  getDroppedAssetDetails,
-  getDroppedAssetsWithUniqueName,
-  getUser,
-  getWorldDetails,
+  handleDropAsset,
+  handleGetDroppedAssetsWithUniqueName,
+  handleGetWorldDetails,
+  handleGetDroppedAsset,
   handleGetVisitor,
+  handleUpdateWorldDataObject,
   moveVisitor,
-  removeDroppedAsset,
-  updateUserDataObject,
-  updateWorldDetails,
+  handleRemoveDroppedAssets,
 } from "./controllers/index.js";
+import { getVersion } from "./utils/getVersion.js";
+
 const router = express.Router();
 
-// Dropped Assets
-router.get("/dropped-asset-with-unique-name", getDroppedAssetsWithUniqueName); // { isPartial: boolean, uniqueName: string }
-router.post("/dropped-asset", dropAsset); // { id: string, isInteractive: boolean, position: {x: number, y: number }, uniqueName: string }
-router.get("/dropped-asset", getDroppedAssetDetails);
-router.delete("/dropped-asset", removeDroppedAsset);
+router.get("/system/health", (req, res) => {
+  return res.json({
+    appVersion: getVersion(),
+    status: "OK",
+  });
+});
 
-// User
-router.put("/user/:profileId/data", updateUserDataObject); // { dataObject: object }
-router.get("/user/:profileId", getUser);
+// Dropped Assets
+router.get("/dropped-asset-with-unique-name", handleGetDroppedAssetsWithUniqueName);
+router.post("/dropped-asset", handleDropAsset);
+router.get("/dropped-asset", handleGetDroppedAsset);
+router.delete("/dropped-asset", handleRemoveDroppedAssets);
 
 // Visitor
-// visitorId comes from interactive nonce
-router.get("/visitor", handleGetVisitor); // { includeDataObject: boolean }
+router.get("/visitor", handleGetVisitor);
 router.put("/visitor/move", moveVisitor);
 
 // World
-// urlSlug comes from interactive nonce
-router.get("/world", getWorldDetails); // { includeDataObject: boolean }
-router.put("/world", updateWorldDetails); // See file for inputs
+router.get("/world", handleGetWorldDetails);
+router.put("/world/data-object", handleUpdateWorldDataObject);
 
 export default router;

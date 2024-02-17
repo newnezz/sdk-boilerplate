@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import router from "./routes.js";
 import cors from "cors";
+import { cleanReturnPayload } from "./utils/cleanReturnPayload.js";
 dotenv.config();
 
 function checkEnvVariables() {
@@ -44,7 +45,24 @@ if (process.env.NODE_ENV === "development") {
   });
 }
 
-app.use("/backend", router);
+app.use(function (req, res, next) {
+  const ogSend = res.send;
+  res.send = function (data) {
+    if (data) {
+      try {
+        const cleanData = cleanReturnPayload(typeof data === "string" ? JSON.parse(data) : data, "topia");
+        res.send = ogSend;
+        return res.send(cleanData);
+      } catch (error) {
+        console.log(error);
+        next();
+      }
+    }
+  };
+  next();
+});
+
+app.use("/api", router);
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
